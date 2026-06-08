@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>بانک سؤالات بورد زنان و زایمان</title>
+<meta name="description" content="مرور آزمونی سؤالات بورد، ارتقا و فلوشیپ زنان و زایمان بر اساس رفرنس و فصل" />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" />
+<style>
+:root{
+  --bg:#eef2f7;--surface:#fff;--surface2:#f8fafc;--text:#0f172a;--muted:#64748b;
+  --border:#e2e8f0;--primary:#1d4ed8;--primary2:#dbeafe;--ok:#16a34a;--ok2:#dcfce7;
+  --bad:#dc2626;--bad2:#fee2e2;--radius:18px;--shadow:0 10px 30px rgba(15,23,42,.08);
+  font-family:"Vazirmatn",system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;
+}
+*{box-sizing:border-box} html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);line-height:1.85;font-size:16px}
+.wrap{max-width:1220px;margin:auto;padding:16px}
+.hero{background:linear-gradient(135deg,#0f172a,#1d4ed8);color:#fff;border-radius:22px;padding:22px 24px;margin-bottom:14px;box-shadow:var(--shadow)}
+.hero h1{margin:0 0 4px;font-size:1.45rem}.hero p{margin:0;color:#dbeafe}
+.grid{display:grid;grid-template-columns:320px 1fr;gap:14px;align-items:start}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.side{position:static!important}}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
+.side{position:sticky;top:14px}
+.field{margin-bottom:13px}.field label{display:block;font-size:.82rem;font-weight:800;color:var(--muted);margin-bottom:6px}
+select,input{width:100%;border:1px solid var(--border);border-radius:12px;background:#fff;color:var(--text);font:inherit;padding:10px 12px}
+select:focus,input:focus{outline:2px solid var(--primary2);border-color:var(--primary)}
+.progress{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.pcell{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:8px;text-align:center}
+.pcell b{display:block;color:var(--primary);font-size:1.15rem}.pcell span{font-size:.74rem;color:var(--muted)}
+.q-top{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.meta{background:var(--surface2);border:1px solid var(--border);border-radius:999px;padding:4px 10px;font-size:.82rem;color:var(--muted)}
+.meta b{color:var(--text)}
+.q-card{border:1px solid var(--border);border-radius:18px;padding:18px;background:#fff}
+.q-title{font-weight:800;font-size:1.06rem;margin:0 0 14px}
+.q-no{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;margin-left:8px;border-radius:10px;background:var(--primary);color:#fff;font-weight:900}
+.opts{display:grid;gap:10px}
+.opt{border:1.5px solid var(--border);background:var(--surface2);border-radius:14px;padding:12px;display:flex;gap:10px;align-items:flex-start;cursor:pointer;font:inherit;color:var(--text);text-align:right;width:100%}
+.opt:hover:not(:disabled){border-color:var(--primary);background:#fff}
+.opt:disabled{cursor:default}.olab{min-width:30px;height:30px;border-radius:9px;background:#fff;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-weight:900}
+.opt.sel{background:var(--primary2);border-color:var(--primary)}.opt.sel .olab{background:var(--primary);color:#fff}
+.opt.correct{background:var(--ok2);border-color:var(--ok)}.opt.correct .olab{background:var(--ok);color:#fff;border-color:var(--ok)}
+.opt.wrong{background:var(--bad2);border-color:var(--bad)}.opt.wrong .olab{background:var(--bad);color:#fff;border-color:var(--bad)}
+.answer{margin-top:14px;border:1px solid var(--border);border-radius:16px;background:var(--surface2);overflow:hidden}
+.answer h3{margin:0;padding:10px 14px;background:var(--ok2);color:var(--ok);font-size:1rem;border-bottom:1px solid var(--border)}
+.answer .body{padding:14px}.label{font-size:.78rem;color:var(--muted);font-weight:900;margin-top:12px}.label:first-child{margin-top:0}
+.expl{white-space:pre-wrap}.ref{display:inline-block;background:#fff;border:1px solid var(--border);border-radius:10px;padding:7px 10px}
+.nav{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:14px;border-top:1px solid var(--border);padding-top:14px}
+.btn{border:1px solid var(--border);background:#fff;border-radius:12px;padding:9px 14px;font:inherit;font-weight:800;cursor:pointer;color:var(--text)}
+.btn.primary{background:var(--primary);color:#fff;border-color:var(--primary)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.empty,.error{text-align:center;color:var(--muted);padding:45px 18px}.error{background:var(--bad2);border:1px solid #fecaca;border-radius:var(--radius);color:var(--bad)}
+.footer{text-align:center;color:var(--muted);font-size:.8rem;padding:18px}
+.hidden{display:none!important}
+@media(max-width:620px){
+  .wrap{padding:10px}.hero{border-radius:16px;padding:18px}.panel{padding:12px;border-radius:14px}
+  .q-card{padding:14px}.q-title{font-size:1rem}.opt{padding:10px}.progress{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <h1>بانک سؤالات بورد زنان و زایمان</h1>
+  <p>مرور آزمونی بر اساس رفرنس و فصل</p>
+</header>
+
+<div id="error" class="error hidden">خطا در خواندن داده‌ها. لطفاً مسیر questions.json و summary.json را بررسی کنید.</div>
+
+<div class="grid" id="app">
+  <aside class="panel side">
+    <div class="field"><label for="bookSelect">انتخاب رفرنس</label><select id="bookSelect"></select></div>
+    <div class="field"><label for="chapterSelect">انتخاب فصل / موضوع</label><select id="chapterSelect"></select></div>
+    <div class="field"><label for="questionSelect">انتخاب شماره سؤال</label><select id="questionSelect"></select></div>
+    <div class="field"><label for="modeSelect">نمایش</label><select id="modeSelect"><option value="all">همه سؤال‌ها</option><option value="unanswered">فقط پاسخ‌داده‌نشده‌ها</option></select></div>
+    <div class="progress">
+      <div class="pcell"><b id="answered">۰</b><span>پاسخ‌داده</span></div>
+      <div class="pcell"><b id="correct">۰</b><span>درست</span></div>
+      <div class="pcell"><b id="wrong">۰</b><span>غلط</span></div>
+    </div>
+  </aside>
+
+  <main class="panel">
+    <div id="empty" class="empty">برای شروع یک رفرنس و فصل را انتخاب کنید.</div>
+    <section id="qView" class="hidden">
+      <div class="q-top" id="qMeta"></div>
+      <article class="q-card">
+        <div class="q-title" id="qStem"></div>
+        <div class="opts" id="qOptions"></div>
+        <div class="answer hidden" id="answerBox"></div>
+        <div class="nav">
+          <button id="prevBtn" class="btn">→ قبلی</button>
+          <button id="nextBtn" class="btn primary">بعدی ←</button>
+        </div>
+      </article>
+    </section>
+  </main>
+</div>
+<div class="footer">بانک سؤالات زنان و زایمان · نسخه آموزشی و بدون backend</div>
+</div>
+
+<script>
+"use strict";
+const STORAGE_KEY="gynqb-progress-v1";
+const $=id=>document.getElementById(id);
+const faDigits=["۰","۱","۲","۳","۴","۵","۶","۷","۸","۹"];
+const faNum=x=>String(x).replace(/[0-9]/g,d=>faDigits[+d]);
+const esc=s=>String(s??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+let state={questions:[],summary:{},books:[],book:"",chapter:"",list:[],index:0,progress:{}};
+
+function loadProgress(){try{state.progress=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}")}catch(e){state.progress={}}}
+function saveProgress(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state.progress))}
+async function boot(){
+  loadProgress();
+  try{
+    const [questions,summary]=await Promise.all([fetch("./questions.json").then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),fetch("./summary.json").then(r=>{if(!r.ok)throw Error(r.status);return r.json()})]);
+    state.questions=questions; state.summary=summary; state.books=summary.books||[];
+    renderBookSelect(); renderProgress();
+  }catch(e){$("app").classList.add("hidden");$("error").classList.remove("hidden")}
+}
+function renderBookSelect(){
+  const s=$("bookSelect"); s.innerHTML="";
+  state.books.forEach((b,i)=>{const o=document.createElement("option");o.value=b.book_fa;o.textContent=b.book_fa;s.appendChild(o);if(i===0)state.book=b.book_fa});
+  s.onchange=()=>{state.book=s.value;renderChapterSelect()};
+  renderChapterSelect();
+}
+function currentBookObj(){return state.books.find(b=>b.book_fa===state.book)||{chapters:[]}}
+function renderChapterSelect(){
+  const s=$("chapterSelect"); s.innerHTML="";
+  const chapters=currentBookObj().chapters||[];
+  chapters.forEach((c,i)=>{const o=document.createElement("option");o.value=c.chapter_key;o.textContent=c.chapter_label;s.appendChild(o);if(i===0)state.chapter=c.chapter_key});
+  s.onchange=()=>{state.chapter=s.value;buildList()};
+  buildList();
+}
+function buildList(){
+  const all=state.questions.filter(q=>q.book_fa===state.book && q.chapter_key===state.chapter);
+  const mode=$("modeSelect").value;
+  state.list=mode==="unanswered"? all.filter(q=>!state.progress[q.question_id]): all;
+  state.index=0;
+  renderQuestionSelect();
+  renderQuestion();
+}
+function renderQuestionSelect(){
+  const s=$("questionSelect");s.innerHTML="";
+  state.list.forEach((q,i)=>{const o=document.createElement("option");o.value=i;o.textContent="سؤال "+faNum(i+1);s.appendChild(o)});
+  s.onchange=()=>{state.index=+s.value;renderQuestion()};
+}
+function meta(label,val){return `<span class="meta">${esc(label)}: <b>${esc(val)}</b></span>`}
+function renderQuestion(){
+  if(!state.list.length){$("empty").classList.remove("hidden");$("qView").classList.add("hidden");return}
+  $("empty").classList.add("hidden");$("qView").classList.remove("hidden");
+  const q=state.list[state.index]; $("questionSelect").value=state.index;
+  $("qMeta").innerHTML=[
+    meta("نام کتاب",q.book_fa),
+    meta(q.is_topic?"موضوع":"فصل",q.chapter_label),
+    meta("نوع آزمون",q.exam_type||"آزمون زنان و زایمان"),
+    meta("سال",q.year||"۱۴۰۳"),
+    meta("جایگاه",`سؤال ${faNum(state.index+1)} از ${faNum(state.list.length)}`)
+  ].join("");
+  $("qStem").innerHTML=`<span class="q-no">${faNum(state.index+1)}</span>${esc(q.stem)}`;
+  const opts=$("qOptions"); opts.innerHTML="";
+  ["الف","ب","ج","د"].forEach(lab=>{
+    const txt=q.options?.[lab]; if(!txt) return;
+    const btn=document.createElement("button");btn.className="opt";btn.dataset.opt=lab;
+    btn.innerHTML=`<span class="olab">${lab}</span><span>${esc(txt)}</span>`;
+    btn.onclick=()=>choose(q,lab); opts.appendChild(btn);
+  });
+  const saved=state.progress[q.question_id];
+  if(saved) applyAnswer(q,saved.selected); else $("answerBox").classList.add("hidden");
+  $("prevBtn").disabled=state.index===0;$("nextBtn").disabled=state.index===state.list.length-1;
+}
+function choose(q,lab){ if(state.progress[q.question_id]) return; state.progress[q.question_id]={selected:lab,correct:q.answer?lab===q.answer:null}; saveProgress(); applyAnswer(q,lab); renderProgress();}
+function applyAnswer(q,selected){
+  document.querySelectorAll(".opt").forEach(btn=>{
+    const lab=btn.dataset.opt; btn.disabled=true;
+    if(q.answer && lab===q.answer) btn.classList.add("correct");
+    if(lab===selected){ if(!q.answer)btn.classList.add("sel"); else if(lab!==q.answer)btn.classList.add("wrong");}
+  });
+  const box=$("answerBox"); box.classList.remove("hidden");
+  box.innerHTML=`<h3>${q.answer?`پاسخ صحیح: گزینه ${esc(q.answer)}`:"پاسخ صحیح از داده مبدا قابل استخراج نبود"}</h3>
+  <div class="body"><div class="label">توضیح</div><div class="expl">${esc(q.explanation||"")}</div>
+  <div class="label">رفرنس</div><div class="ref">${esc(q.reference_text||"")}</div></div>`;
+}
+function renderProgress(){
+  let a=0,c=0,w=0; Object.values(state.progress).forEach(p=>{a++; if(p.correct===true)c++; if(p.correct===false)w++;});
+  $("answered").textContent=faNum(a);$("correct").textContent=faNum(c);$("wrong").textContent=faNum(w);
+}
+$("prevBtn").onclick=()=>{if(state.index>0){state.index--;renderQuestion()}};
+$("nextBtn").onclick=()=>{if(state.index<state.list.length-1){state.index++;renderQuestion()}};
+$("modeSelect").onchange=buildList;
+document.addEventListener("DOMContentLoaded",boot);
+</script>
+</body>
+</html>

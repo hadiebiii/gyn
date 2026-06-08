@@ -1,0 +1,30 @@
+{
+  "total": 657,
+  "by_book": {
+    "ویلیامز": 283,
+    "نواک": 138,
+    "اسپیروف": 122,
+    "تلیندز": 84,
+    "آپتودیت": 18,
+    "سایر": 12
+  },
+  "total_chapters": 140,
+  "missing_options_count": 5,
+  "missing_answer_count": 0,
+  "missing_explanation_count": 0,
+  "raw_artifacts_count": 0,
+  "missing_options_sample": [
+    "Q1403-0180",
+    "Q1403-0477",
+    "Q1403-0478",
+    "Q1403-0556",
+    "Q1403-0638"
+  ],
+  "missing_answer_sample": [],
+  "missing_explanation_sample": [],
+  "raw_artifacts_sample": [],
+  "hard_overrides": [
+    "Q1403-0249",
+    "Q1403-0173"
+  ]
+}
